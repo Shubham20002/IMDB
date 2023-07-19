@@ -63,6 +63,9 @@ return moviediv;
 
 //to render data on fav page
 function createfavdiv(movie){
+  if(movie.Poster==="N/A"){
+    movie.Poster="https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg"
+     }
 
   const moviediv=document.createElement('div');
   const a=`<div class="card bg-dark" style="width: 18rem ">
