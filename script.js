@@ -71,6 +71,38 @@ function createmoviediv(movie){
     return moviediv;
 }
 
+//to render data on home page
+function createfavdiv(movie){
+  const moviediv=document.createElement('div');
+  moviediv.classList.add("moviediv");
+
+
+  const img=document.createElement('img');
+  img.classList.add("imgstyle");
+  img.setAttribute('src',movie.Poster);
+  moviediv.appendChild(img);
+
+ //link to open movie page for each page
+ const movieTitleLink = document.createElement("a");
+ movieTitleLink.classList.add('namestyle')
+ movieTitleLink.href = `movie.html?id=${movie.imdbID}`;
+ movieTitleLink.textContent = movie.Title;
+ moviediv.appendChild(movieTitleLink);
+ 
+  btnfav=document.createElement('button');
+  btnfav.classList.add('btn');
+  btnfav.innerText="Remove";
+ 
+
+  const buttondiv=document.createElement('div');
+  buttondiv.appendChild(btnfav);
+  moviediv.appendChild(buttondiv);
+
+
+  btnfav.onclick = (e) => addToFavorites(movie.imdbID);
+  return moviediv;
+}
+
 
 
 //function to render movie on movie page
@@ -158,7 +190,7 @@ function removeFromFavorites(movieID) {
 // Function to load and display favorite movies
 async function loadFavorites() {
   const favoritesContainer = document.getElementById("favoriteMovies");
-  favoritesContainer.innerHTML = "";
+  if(favoritesContainer!==null){favoritesContainer.innerHTML = "";}
 
   // Get the favorites from localStorage or initialize an empty array
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -170,13 +202,13 @@ async function loadFavorites() {
 
       if (movie) {
         // Create a movie element for each fetched movie and append it to the favorites container
-        const movieElement = createmoviediv(movie, false);
+        const movieElement = createfavdiv(movie, false);
         favoritesContainer.appendChild(movieElement);
       }
     }
   } else {
     // Display a message if no favorite movies are found
-    favoritesContainer.innerHTML = "<p>No Favorite Movies Found</p>";
+   if(favoritesContainer !==null){ favoritesContainer.innerHTML = "<p>No Favorite Movies Found</p>";}
   }
 }
 
