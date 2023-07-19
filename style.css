@@ -21,13 +21,13 @@
     flex-wrap: wrap;
     justify-content: space-around;
 }
-.moviediv{
+/* .moviediv{
     width: 25%;
     height: 300px;
     margin-top: 10px;
     background-color: black;
     border: 2px solid red;
-}
+} */
 .imgstyle{
     width: 100%;
     height: 200px;
@@ -46,10 +46,10 @@
 
 }
 .fav{
-    width:30%;
+    width:100%;
     /* height: auto; */
-    min-height: 95vh;
-    background-color: yellow;
+    
+    
 
 }
 
@@ -68,7 +68,5 @@
     justify-content: space-around;
 
 }
-#favoriteMovies div{
-     width: 40%;
-}
+
 

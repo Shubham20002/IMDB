@@ -21,7 +21,8 @@ async function getMovies(event) {
         console.log(movies.Search)
         poster.innerHTML = "";
         for(const movie of movies.Search){
-        const moviediv=createmoviediv(movie,true,false);
+      
+        const moviediv=createmoviediv(movie);
         poster.appendChild(moviediv);
         }
     }
@@ -41,66 +42,41 @@ var btnfav;
 
 //to render data on home page
 function createmoviediv(movie){
-    const moviediv=document.createElement('div');
-    moviediv.classList.add("moviediv");
+  if(movie.Poster==="N/A"){
+ movie.Poster="https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg"
+  }
+ const moviediv=document.createElement('div');
+  const a=`<div class="card" style="width: 18rem ">
+  <img src="${movie.Poster}" class=" img-thumbnail" alt="..." ">
+  <div class="card-body">
+    <h5 class="card-title"><a href="movie.html?id=${movie.imdbID}">${movie.Title}</a></h5>
+    <p class="card-text">Year: ${movie.Year}</p>
+    <button type="button" class="btn btn-primary" onclick="addToFavorites('${movie.imdbID}')">fav</button>
+  </div>
+</div>`
 
-
-    const img=document.createElement('img');
-    img.classList.add("imgstyle");
-    img.setAttribute('src',movie.Poster);
-    moviediv.appendChild(img);
-
-   //link to open movie page for each page
-   const movieTitleLink = document.createElement("a");
-   movieTitleLink.classList.add('namestyle')
-   movieTitleLink.href = `movie.html?id=${movie.imdbID}`;
-   movieTitleLink.textContent = movie.Title;
-   moviediv.appendChild(movieTitleLink);
-   
-    btnfav=document.createElement('button');
-    btnfav.classList.add('btn');
-    btnfav.innerText="fav";
-   
-
-    const buttondiv=document.createElement('div');
-    buttondiv.appendChild(btnfav);
-    moviediv.appendChild(buttondiv);
-
-
-    btnfav.onclick = (e) => addToFavorites(movie.imdbID);
-    return moviediv;
+moviediv.innerHTML=a;
+return moviediv;    
 }
 
-//to render data on home page
+
+
+//to render data on fav page
 function createfavdiv(movie){
+
   const moviediv=document.createElement('div');
-  moviediv.classList.add("moviediv");
+  const a=`<div class="card" style="width: 18rem ">
+  <img src="${movie.Poster}" class=" img-thumbnail" alt="..." ">
+  <div class="card-body">
+    <h5 class="card-title"><a href="movie.html?id=${movie.imdbID}">${movie.Title}</a></h5>
+    <p class="card-text">Year: ${movie.Year}</p>
+  
+    <button type="button" class="btn btn-primary" onclick="addToFavorites('${movie.imdbID}')">remove</button>
+  </div>
+</div>`
 
-
-  const img=document.createElement('img');
-  img.classList.add("imgstyle");
-  img.setAttribute('src',movie.Poster);
-  moviediv.appendChild(img);
-
- //link to open movie page for each page
- const movieTitleLink = document.createElement("a");
- movieTitleLink.classList.add('namestyle')
- movieTitleLink.href = `movie.html?id=${movie.imdbID}`;
- movieTitleLink.textContent = movie.Title;
- moviediv.appendChild(movieTitleLink);
- 
-  btnfav=document.createElement('button');
-  btnfav.classList.add('btn');
-  btnfav.innerText="Remove";
- 
-
-  const buttondiv=document.createElement('div');
-  buttondiv.appendChild(btnfav);
-  moviediv.appendChild(buttondiv);
-
-
-  btnfav.onclick = (e) => addToFavorites(movie.imdbID);
-  return moviediv;
+moviediv.innerHTML=a;
+return moviediv;
 }
 
 
@@ -203,7 +179,7 @@ async function loadFavorites() {
       if (movie) {
         // Create a movie element for each fetched movie and append it to the favorites container
         const movieElement = createfavdiv(movie, false);
-        favoritesContainer.appendChild(movieElement);
+       if(favoritesContainer!==null){ favoritesContainer.appendChild(movieElement);}
       }
     }
   } else {
