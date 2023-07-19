@@ -46,11 +46,11 @@ function createmoviediv(movie){
  movie.Poster="https://upload.wikimedia.org/wikipedia/commons/f/f9/No-image-available.jpg"
   }
  const moviediv=document.createElement('div');
-  const a=`<div class="card" style="width: 18rem ">
+  const a=`<div class="card bg-dark" style="width: 18rem ">
   <img src="${movie.Poster}" class=" img-thumbnail" alt="..." ">
   <div class="card-body">
     <h5 class="card-title"><a href="movie.html?id=${movie.imdbID}">${movie.Title}</a></h5>
-    <p class="card-text">Year: ${movie.Year}</p>
+    <p class="card-text text-white">Year: ${movie.Year}</p>
     <button type="button" class="btn btn-primary" onclick="addToFavorites('${movie.imdbID}')">fav</button>
   </div>
 </div>`
@@ -65,7 +65,7 @@ return moviediv;
 function createfavdiv(movie){
 
   const moviediv=document.createElement('div');
-  const a=`<div class="card" style="width: 18rem ">
+  const a=`<div class="card bg-dark" style="width: 18rem ">
   <img src="${movie.Poster}" class=" img-thumbnail" alt="..." ">
   <div class="card-body">
     <h5 class="card-title"><a href="movie.html?id=${movie.imdbID}">${movie.Title}</a></h5>
